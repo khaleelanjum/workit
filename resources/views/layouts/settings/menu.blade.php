@@ -119,6 +119,12 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a href="{!! url('settings/web_settings') !!}" class="nav-link {{  Request::is('settings/web_settings*') ? 'active' : '' }}">
+                    @if($icons)<i class="nav-icon fas fa-globe"></i> @endif <p>{{trans('lang.web_settings')}}</p>
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>
