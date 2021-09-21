@@ -1318,4 +1318,16 @@ return [
     'wallet_transaction_wallet_id_placeholder' => 'Insert Wallet',
     'wallet_transaction_user_id' => 'Transaction By',
     'wallet_transaction_updated_at' => 'Updated At',
+    
+    'web_settings'=>'Web Settings',
+    'user_web'=>'Web',
+    'web_placeholder'=>'www.sitename.com',
+    'web_help'=>'Enter Your Website',
+    'latitude'=>'Latitude',
+    'latitude_placeholder'=>'Enter here',
+    'latitude_help'=>'Enter the latitude',
+    'longitude'=>'Longitude',
+    'longitude_placeholder'=>'Enter here',
+    'longitude_help'=>'Enter the Longitude',
+    'web_app_setting'=>'Web Settings',
 ];
