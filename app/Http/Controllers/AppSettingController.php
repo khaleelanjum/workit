@@ -106,10 +106,9 @@ class AppSettingController extends Controller
         }
         return redirect()->back();
     }
-    public function web_Settings()
+    public function web_settings()
     {
         return view('settings.web.web_settings');
-       
     }
 
     public function checkForUpdates(Request $request)

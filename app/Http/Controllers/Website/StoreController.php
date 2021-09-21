@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Website;
 
 use App\Repositories\BookingRepository;
+use App\Repositories\CurrencyRepository;
 use App\Repositories\EarningRepository;
 use App\Repositories\EProviderRepository;
 use App\Repositories\UserRepository;
@@ -20,9 +21,13 @@ use Illuminate\View\View;
 
 class StoreController extends Controller
 {
-    public function __construct()
+    private $currencyRepository;
+
+    public function __construct(CurrencyRepository $currencyRepository)
     {
         parent::__construct();
+
+        $this->currencyRepository = $currencyRepository;
     }
 
     /**
@@ -33,6 +38,7 @@ class StoreController extends Controller
     public function index()
     {
         $google_maps_key = DB::table('app_settings')->where('key', 'google_maps_key')->value('value');
+        $default_currency = DB::table('app_settings')->where('key', 'default_currency')->value('value');
         $category_count = DB::table('e_service_categories')
             ->select('category_id', DB::raw("COUNT(*) as category_count"))
             ->groupBy('category_id');
@@ -44,15 +50,18 @@ class StoreController extends Controller
             })->where('featured', 1)->get();
 
         $featured_services = DB::table('e_services')
-            ->select('e_services.id', 'e_services.name', 'e_services.price', 'e_services.available', DB::raw('categories.name as category_name'))
+            ->select('e_services.id', 'e_services.name', 'e_services.price', 'e_services.available', DB::raw('categories.name as category_name'), DB::raw('AVG(e_service_reviews.rate) as rating'))
             ->join('e_service_categories', 'e_services.id', '=', 'e_service_categories.e_service_id')
             ->join('categories', 'categories.id', '=', 'e_service_categories.category_id')
+            ->leftJoin('e_service_reviews', 'e_services.id', '=', 'e_service_reviews.e_service_id')
             ->where('e_services.featured', 1)
+            ->groupBy('e_service_reviews.e_service_id')
             ->get();
 
         return view('website.index')
             ->with("page", 'home')
             ->with("google_maps_key", $google_maps_key)
+            ->with("default_currency", $default_currency)
             ->with("featured_categories", $featured_categories)
             ->with("featured_services", $featured_services);
     }

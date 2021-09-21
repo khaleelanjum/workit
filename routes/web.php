@@ -98,13 +98,8 @@ Route::middleware('auth')->group(function () {
             Route::get('sync-translation', 'AppSettingController@syncTranslation');
             Route::get('clear-cache', 'AppSettingController@clearCache');
             Route::get('check-update', 'AppSettingController@checkForUpdates');
-
-
-
-
             Route::get('web_settings', 'AppSettingController@web_settings');
 
-            
             // disable special character and number in route params
             Route::get('/{type?}/{tab?}', 'AppSettingController@index')
                 ->where('type', '[A-Za-z]*')->where('tab', '[A-Za-z]*')->name('app-settings');

@@ -97,7 +97,7 @@
                     </div>
 
                 </div>
-                
+
                 <!-- Submit Field -->
                 <div class="form-group mt-4 col-12 text-right">
                     <button type="submit" class="btn bg-{{setting('theme_color')}} mx-md-3 my-lg-0 my-xl-0 my-md-0 my-2">
@@ -109,7 +109,6 @@
             {!! Form::close() !!}
             <div class="clearfix"></div>
         </div>
-    </div>
     </div>
     @include('layouts.media_modal',['collection'=>null])
 @endsection

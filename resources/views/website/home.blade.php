@@ -271,21 +271,22 @@
                                             <img src="images/utf_listing_item-01.jpg" alt="">
                                             <span class="tag"><i class="im im-icon-Chef-Hat"></i> {{json_decode($service->category_name)->en}}</span>
                                             <span class="featured_tag">Featured</span>
-                                            $service->available ? <span class="utf_open_now">Available</span> : <span class="utf_open_now">Available</span>
+                                            $service->available ? <span class="utf_open_now">Available</span> : <span
+                                                    class="utf_open_now">Available</span>
                                             <div class="utf_listing_item_content">
                                                 <div class="utf_listing_prige_block">
-                                            <span class="utf_meta_listing_price"><i
-                                                        class="fa fa-tag"></i> $25 - $55</span>
-                                                    <span class="utp_approve_item"><i
-                                                                class="utf_approve_listing"></i></span>
+                                            <span class="utf_meta_listing_price">
+                                                <i class="fa fa-tag"></i>{{$service->price . ' ' . $default_currency}}</span>
+                                                    <span class="utp_approve_item">
+                                                        <i class="utf_approve_listing"></i></span>
                                                 </div>
-                                                <h3>Chontaduro Barcelona</h3>
-                                                <span><i class="sl sl-icon-location"></i> The Ritz-Carlton, Hong Kong</span>
-                                                <span><i class="sl sl-icon-phone"></i> (415) 796-3633</span>
+                                                <h3>{{json_decode($service->name)->en}}</h3>
+                                                {{--<span><i class="sl sl-icon-location"></i> The Ritz-Carlton, Hong Kong</span>
+                                                <span><i class="sl sl-icon-phone"></i> (415) 796-3633</span>--}}
                                             </div>
                                         </div>
-                                        <div class="utf_star_rating_section" data-rating="4.5">
-                                            <div class="utf_counter_star_rating">(4.5)</div>
+                                        <div class="utf_star_rating_section" data-rating="{{$service->rating}}">
+                                            <div class="utf_counter_star_rating">({{round($service->rating, 1)}})</div>
                                             <span class="utf_view_count"><i class="fa fa-eye"></i> 822+</span>
                                             <span class="like-icon"></span>
                                         </div>
