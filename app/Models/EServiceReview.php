@@ -33,7 +33,8 @@ class EServiceReview extends Model
         'review',
         'rate',
         'user_id',
-        'e_service_id'
+        'e_service_id',
+        'featured'
     ];
 
     /**
