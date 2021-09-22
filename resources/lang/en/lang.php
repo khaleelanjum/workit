@@ -1330,4 +1330,7 @@ return [
     'longitude_placeholder'=>'Enter here',
     'longitude_help'=>'Enter the Longitude',
     'web_app_setting'=>'Web Settings',
+    'e_service_reviews_featured' => 'Featured',
+    'e_provider_featured_help' => 'Insert Featured',
+    'e_provider_featured_placeholder' => 'Insert Featured',
 ];
