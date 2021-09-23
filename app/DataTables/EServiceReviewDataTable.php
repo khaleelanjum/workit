@@ -44,6 +44,9 @@ class EServiceReviewDataTable extends DataTable
             ->editColumn('e_service.name', function ($eServiceReview) {
                 return getLinksColumnByRouteName([$eServiceReview->eService], 'eServices.edit', 'id', 'name');
             })
+            ->editColumn('featured', function ($eServiceReview) {
+                return getBooleanColumn($eServiceReview, 'featured');
+            })
             ->addColumn('action', 'e_service_reviews.datatables_actions')
             ->rawColumns(array_merge($columns, ['action']));
 
@@ -77,6 +80,11 @@ class EServiceReviewDataTable extends DataTable
                 'name' => 'eService.name',
                 'data' => 'e_service.name',
                 'title' => trans('lang.e_service_review_e_service_id'),
+
+            ],
+            [ 
+                'data' => 'featured',
+                'title' => 'Featured',
 
             ],
             [
