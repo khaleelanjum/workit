@@ -1,229 +1,89 @@
-<div id="utf_rev_slider_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-alias="classicslider1"
-     style="margin:0 auto;background-color:transparent;padding:0;">
-    <div id="utf_rev_slider_block" class="rev_slider home fullwidthabanner" style="display:none;"
-         data-version="5.0.7">
-        <ul>
-            <li data-index="rs-1" data-transition="fade" data-slotamount="default" data-easein="Power4.easeInOut"
-                data-easeout="Power4.easeInOut" data-masterspeed="1000" data-rotate="0" data-fstransition="fade"
-                data-fsmasterspeed="800" data-fsslotamount="7" data-saveperformance="off">
-                <img src="images/search_slider_bg_1.jpg" alt="" data-bgposition="center center" data-bgfit="cover"
-                     data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina
-                     data-kenburns="on" data-duration="12000" data-ease="Linear.easeNone" data-scalestart="100"
-                     data-scaleend="112" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0"
-                     data-offsetend="0 0">
-                <div class="container main_inner_search_block margin-top-100">
-                    <div class="main_input_search_part">
-                        <div class="main_input_search_part_item">
-                            <input type="text" placeholder="What are you looking for?" value=""/>
+@if(count($slides) > 0)
+    <div id="utf_rev_slider_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-alias="classicslider1"
+         style="margin:0 auto;background-color:transparent;padding:0;">
+        <div id="utf_rev_slider_block" class="rev_slider home fullwidthabanner" style="display:none;"
+             data-version="5.0.7">
+            <ul>
+                @foreach($slides as $slide)
+                    <li data-index="rs-1" data-transition="fade" data-slotamount="default"
+                        data-easein="Power4.easeInOut"
+                        data-easeout="Power4.easeInOut" data-masterspeed="1000" data-rotate="0" data-fstransition="fade"
+                        data-fsmasterspeed="800" data-fsslotamount="7" data-saveperformance="off">
+                        <img src="{{asset('storage/app/public/'.$slide["media"][0]["id"]."/".$slide["media"][0]["file_name"])}}"
+                             alt="" data-bgposition="center center"
+                             data-bgfit="cover"
+                             data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina
+                             data-kenburns="on" data-duration="12000" data-ease="Linear.easeNone" data-scalestart="100"
+                             data-scaleend="112" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0"
+                             data-offsetend="0 0">
+                        <div class="container main_inner_search_block margin-top-100">
+                            <div class="main_input_search_part">
+                                <div class="main_input_search_part_item">
+                                    <input type="text" placeholder="What are you looking for?" value=""/>
+                                </div>
+                                <div class="main_input_search_part_item location">
+                                    <input type="text" placeholder="Search Location..." value=""/>
+                                    <a href="#"><i class="sl sl-icon-location"></i></a>
+                                </div>
+                                <div class="main_input_search_part_item intro-search-field">
+                                    <select data-placeholder="All Categories" class="selectpicker default"
+                                            title="All Categories" data-selected-text-format="count" data-size="4">
+                                        @foreach($featured_categories as $categories)
+                                            <option value="{{$categories->id}}">{{json_decode($categories->name)->en}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <button class="button" onclick="">Search</button>
+                            </div>
                         </div>
-                        <div class="main_input_search_part_item location">
-                            <input type="text" placeholder="Search Location..." value=""/>
-                            <a href="#"><i class="sl sl-icon-location"></i></a>
+                        <div class="tp-caption centered utf_custom_caption tp-shape tp-shapewrapper tp-resizeme rs-parallaxlevel-0"
+                             id="utf_slide_layer_item_one"
+                             data-x="['center','center','center','center']" data-hoffset="['0']"
+                             data-y="['70','30','20','0']" data-voffset="['0']"
+                             data-width="['900','620', 640','420','320']"
+                             data-height="auto"
+                             data-whitespace="nowrap"
+                             data-transform_idle="o:1;"
+                             data-transform_in="y:0;opacity:0;s:1000;e:Power2.easeOutExpo;s:400;e:Power2.easeOutExpo"
+                             data-transform_out=""
+                             data-mask_in="x:0px;y:[20%];s:inherit;e:inherit;"
+                             data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"
+                             data-start="1000"
+                             data-responsive_offset="on">
+                            <div class="utf_item_title margin-bottom-15"
+                                 id="utf_slide_layer_detail_one"
+                                 data-x="['center','center','center','center']"
+                                 data-hoffset="['0','0','0','0']"
+                                 data-y="['20','20','20','20']"
+                                 data-voffset="['-40','-40','-20','-80']"
+                                 data-fontsize="['56','46','30','34','22']"
+                                 data-lineheight="['70','60','34','30','25']"
+                                 data-width="['960','620', 640','420','320']"
+                                 data-height="none" data-whitespace="normal"
+                                 data-transform_idle="o:1;"
+                                 data-transform_in="y:-50px;sX:2;sY:2;opacity:0;s:1000;e:Power4.easeOut;"
+                                 data-transform_out="opacity:0;s:300;"
+                                 data-start="600"
+                                 data-splitin="none"
+                                 data-splitout="none"
+                                 data-basealign="slide"
+                                 data-responsive_offset="off"
+                                 data-responsive="off"
+                                 style="z-index:6;color:{{$slide["text_color"]}};letter-spacing:0px;font-weight:600;">{{$slide["text"]->en}}
+                            </div>
+                            {{--<div class="utf_rev_description_text">Business owners - over a million people view these
+                                listings every month - we highly recommend you ensure your business is properly listed.
+                            </div>--}}
+                            <a href="#" style="background-color: {{$slide['button_color']}}"
+                               class="button medium">{{$slide['button']->en}}</a>
                         </div>
-                        <div class="main_input_search_part_item intro-search-field">
-                            <select data-placeholder="All Categories" class="selectpicker default"
-                                    title="All Categories" data-selected-text-format="count" data-size="4">
-                                <option>Food & Restaurants</option>
-                                <option>Shop & Education</option>
-                                <option>Education</option>
-                                <option>Business</option>
-                                <option>Events</option>
-                            </select>
-                        </div>
-                        <button class="button" onclick="">Search</button>
-                    </div>
-                </div>
-                <div class="tp-caption centered utf_custom_caption tp-shape tp-shapewrapper tp-resizeme rs-parallaxlevel-0"
-                     id="utf_slide_layer_item_one"
-                     data-x="['center','center','center','center']" data-hoffset="['0']"
-                     data-y="['70','30','20','0']" data-voffset="['0']"
-                     data-width="['900','620', 640','420','320']"
-                     data-height="auto"
-                     data-whitespace="nowrap"
-                     data-transform_idle="o:1;"
-                     data-transform_in="y:0;opacity:0;s:1000;e:Power2.easeOutExpo;s:400;e:Power2.easeOutExpo"
-                     data-transform_out=""
-                     data-mask_in="x:0px;y:[20%];s:inherit;e:inherit;"
-                     data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"
-                     data-start="1000"
-                     data-responsive_offset="on">
-                    <div class="utf_item_title margin-bottom-15"
-                         id="utf_slide_layer_detail_one"
-                         data-x="['center','center','center','center']"
-                         data-hoffset="['0','0','0','0']"
-                         data-y="['20','20','20','20']"
-                         data-voffset="['-40','-40','-20','-80']"
-                         data-fontsize="['56','46','30','34','22']"
-                         data-lineheight="['70','60','34','30','25']"
-                         data-width="['960','620', 640','420','320']"
-                         data-height="none" data-whitespace="normal"
-                         data-transform_idle="o:1;"
-                         data-transform_in="y:-50px;sX:2;sY:2;opacity:0;s:1000;e:Power4.easeOut;"
-                         data-transform_out="opacity:0;s:300;"
-                         data-start="600"
-                         data-splitin="none"
-                         data-splitout="none"
-                         data-basealign="slide"
-                         data-responsive_offset="off"
-                         data-responsive="off"
-                         style="z-index:6;color:#fff;letter-spacing:0px;font-weight:600;">Find & Explore Top City
-                    </div>
-                    <div class="utf_rev_description_text">Business owners - over a million people view these
-                        listings every month - we highly recommend you ensure your business is properly listed.
-                    </div>
-                    <a href="#" class="button medium">View More</a>
-                </div>
-            </li>
-
-            <li data-index="rs-2" data-transition="fade" data-slotamount="default" data-easein="Power4.easeInOut"
-                data-easeout="Power4.easeInOut" data-masterspeed="1000" data-rotate="0" data-fstransition="fade"
-                data-fsmasterspeed="800" data-fsslotamount="7" data-saveperformance="off">
-                <img src="images/search_slider_bg_2.jpg" alt="" data-bgposition="center center" data-bgfit="cover"
-                     data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina
-                     data-kenburns="on" data-duration="12000" data-ease="Linear.easeNone" data-scalestart="100"
-                     data-scaleend="112" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0"
-                     data-offsetend="0 0">
-                <div class="container main_inner_search_block margin-top-100">
-                    <div class="main_input_search_part">
-                        <div class="main_input_search_part_item">
-                            <input type="text" placeholder="What are you looking for?" value=""/>
-                        </div>
-                        <div class="main_input_search_part_item location">
-                            <input type="text" placeholder="Search Location..." value=""/>
-                            <a href="#"><i class="sl sl-icon-location"></i></a>
-                        </div>
-                        <div class="main_input_search_part_item intro-search-field">
-                            <select data-placeholder="All Categories" class="selectpicker default"
-                                    title="All Categories" data-selected-text-format="count" data-size="4">
-                                <option>Food & Restaurants</option>
-                                <option>Shop & Education</option>
-                                <option>Education</option>
-                                <option>Business</option>
-                                <option>Events</option>
-                            </select>
-                        </div>
-                        <button class="button" onclick="">Search</button>
-                    </div>
-                </div>
-                <div class="tp-caption centered utf_custom_caption tp-shape tp-shapewrapper tp-resizeme rs-parallaxlevel-0"
-                     id="utf_slide_layer_item_two"
-                     data-x="['center','center','center','center']" data-hoffset="['0']"
-                     data-y="['70','30','20','0']" data-voffset="['0']"
-                     data-width="['900','620', 640','420','320']"
-                     data-height="auto"
-                     data-whitespace="nowrap"
-                     data-transform_idle="o:1;"
-                     data-transform_in="y:0;opacity:0;s:1000;e:Power2.easeOutExpo;s:400;e:Power2.easeOutExpo"
-                     data-transform_out=""
-                     data-mask_in="x:0px;y:[20%];s:inherit;e:inherit;"
-                     data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"
-                     data-start="1000"
-                     data-responsive_offset="on">
-                    <div class="utf_item_title margin-bottom-15"
-                         id="utf_slide_layer_detail_two"
-                         data-x="['center','center','center','center']"
-                         data-hoffset="['0','0','0','0']"
-                         data-y="['20','20','20','20']"
-                         data-voffset="['-40','-40','-20','-80']"
-                         data-fontsize="['56','42','30','27','22']"
-                         data-lineheight="['70','60','34','30','25']"
-                         data-width="['960','620', 640','420','320']"
-                         data-height="none" data-whitespace="normal"
-                         data-transform_idle="o:1;"
-                         data-transform_in="y:-50px;sX:2;sY:2;opacity:0;s:1000;e:Power4.easeOut;"
-                         data-transform_out="opacity:0;s:300;"
-                         data-start="600"
-                         data-splitin="none"
-                         data-splitout="none"
-                         data-basealign="slide"
-                         data-responsive_offset="off"
-                         data-responsive="off"
-                         style="z-index:6;color:#fff;letter-spacing:0px;font-weight:600;">Find & Explore Top
-                        Restaurants
-                    </div>
-                    <div class="utf_rev_description_text">Business owners - over a million people view these
-                        listings every month - we highly recommend you ensure your business is properly listed.
-                    </div>
-                    <a href="#" class="button medium">View More</a>
-                </div>
-            </li>
-
-            <li data-index="rs-3" data-transition="fade" data-slotamount="default" data-easein="Power4.easeInOut"
-                data-easeout="Power4.easeInOut" data-masterspeed="1000" data-rotate="0" data-fstransition="fade"
-                data-fsmasterspeed="800" data-fsslotamount="7" data-saveperformance="off">
-                <img src="images/search_slider_bg_3.jpg" alt="" data-bgposition="center center" data-bgfit="cover"
-                     data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina
-                     data-kenburns="on" data-duration="12000" data-ease="Linear.easeNone" data-scalestart="100"
-                     data-scaleend="112" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0"
-                     data-offsetend="0 0">
-                <div class="container main_inner_search_block margin-top-100">
-                    <div class="main_input_search_part">
-                        <div class="main_input_search_part_item">
-                            <input type="text" placeholder="What are you looking for?" value=""/>
-                        </div>
-                        <div class="main_input_search_part_item location">
-                            <input type="text" placeholder="Search Location..." value=""/>
-                            <a href="#"><i class="sl sl-icon-location"></i></a>
-                        </div>
-                        <div class="main_input_search_part_item intro-search-field">
-                            <select data-placeholder="All Categories" class="selectpicker default"
-                                    title="All Categories" data-selected-text-format="count" data-size="4">
-                                <option>Food & Restaurants</option>
-                                <option>Shop & Education</option>
-                                <option>Education</option>
-                                <option>Business</option>
-                                <option>Events</option>
-                            </select>
-                        </div>
-                        <button class="button" onclick="">Search</button>
-                    </div>
-                </div>
-                <div class="tp-caption centered utf_custom_caption tp-shape tp-shapewrapper tp-resizeme rs-parallaxlevel-0"
-                     id="utf_slide_layer_item_three"
-                     data-x="['center','center','center','center']" data-hoffset="['0']"
-                     data-y="['70','30','20','0']" data-voffset="['0']"
-                     data-width="['900','620', 640','420','320']"
-                     data-height="auto"
-                     data-whitespace="nowrap"
-                     data-transform_idle="o:1;"
-                     data-transform_in="y:0;opacity:0;s:1000;e:Power2.easeOutExpo;s:400;e:Power2.easeOutExpo"
-                     data-transform_out=""
-                     data-mask_in="x:0px;y:[20%];s:inherit;e:inherit;"
-                     data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"
-                     data-start="1000"
-                     data-responsive_offset="on">
-                    <div class="utf_item_title margin-bottom-15"
-                         id="utf_slide_layer_detail_three"
-                         data-x="['center','center','center','center']"
-                         data-hoffset="['0','0','0','0']"
-                         data-y="['20','20','20','20']"
-                         data-voffset="['-40','-40','-20','-80']"
-                         data-fontsize="['56','46','30','30','22']"
-                         data-lineheight="['70','60','34','30','25']"
-                         data-width="['960','620', 640','420','320']"
-                         data-height="none" data-whitespace="normal"
-                         data-transform_idle="o:1;"
-                         data-transform_in="y:-50px;sX:2;sY:2;opacity:0;s:1000;e:Power4.easeOut;"
-                         data-transform_out="opacity:0;s:300;"
-                         data-start="600"
-                         data-splitin="none"
-                         data-splitout="none"
-                         data-basealign="slide"
-                         data-responsive_offset="off"
-                         data-responsive="off"
-                         style="z-index:6;color:#fff;letter-spacing:0px;font-weight:600;">Find & Explore Nearest
-                        Bars
-                    </div>
-                    <div class="utf_rev_description_text">Business owners - over a million people view these
-                        listings every month - we highly recommend you ensure your business is properly listed.
-                    </div>
-                    <a href="#" class="button medium">View More</a>
-                </div>
-            </li>
-        </ul>
-        <div class="tp-static-layers"></div>
+                    </li>
+                @endforeach
+            </ul>
+            <div class="tp-static-layers"></div>
+        </div>
     </div>
-</div>
+@endif
 
 @if(count($featured_categories) > 0)
     <div class="container">
@@ -257,7 +117,7 @@
         <div class="container">
             <div class="row slick_carousel_slider">
                 <div class="col-md-12">
-                    <h3 class="headline_part centered margin-bottom-45"> Most Visited Places <span>Explore the greates places in the city</span>
+                    <h3 class="headline_part centered margin-bottom-45"> Most Recommended Services <span>Explore the best services in the city</span>
                     </h3>
                 </div>
 
@@ -268,25 +128,26 @@
                                 <div class="utf_carousel_item">
                                     <a href="listings_single_page_1.html" class="utf_listing_item-container compact">
                                         <div class="utf_listing_item">
-                                            <img src="images/utf_listing_item-01.jpg" alt="">
-                                            <span class="tag"><i class="im im-icon-Chef-Hat"></i> {{json_decode($service->category_name)->en}}</span>
+                                            <img src="{{asset('storage/app/public/'.$service["media"][0]["id"]."/".$service["media"][0]["file_name"])}}"
+                                                 alt="">
+                                            {{--                                            <span class="tag"><i class="im im-icon-Chef-Hat"></i> {{json_decode($service->category_name)->en}}</span>--}}
                                             <span class="featured_tag">Featured</span>
                                             $service->available ? <span class="utf_open_now">Available</span> : <span
                                                     class="utf_open_now">Available</span>
                                             <div class="utf_listing_item_content">
                                                 <div class="utf_listing_prige_block">
                                             <span class="utf_meta_listing_price">
-                                                <i class="fa fa-tag"></i>{{$service->price . ' ' . $default_currency}}</span>
+                                                <i class="fa fa-tag"></i>{{$service["price"] . ' ' . $default_currency}}</span>
                                                     <span class="utp_approve_item">
                                                         <i class="utf_approve_listing"></i></span>
                                                 </div>
-                                                <h3>{{json_decode($service->name)->en}}</h3>
+                                                <h3>{{$service["name"]->en}}</h3>
                                                 {{--<span><i class="sl sl-icon-location"></i> The Ritz-Carlton, Hong Kong</span>
                                                 <span><i class="sl sl-icon-phone"></i> (415) 796-3633</span>--}}
                                             </div>
                                         </div>
-                                        <div class="utf_star_rating_section" data-rating="{{$service->rating}}">
-                                            <div class="utf_counter_star_rating">({{round($service->rating, 1)}})</div>
+                                        <div class="utf_star_rating_section" data-rating="{{$service["rate"]}}">
+                                            <div class="utf_counter_star_rating">({{$service["total_reviews"]}})</div>
                                             <span class="utf_view_count"><i class="fa fa-eye"></i> 822+</span>
                                             <span class="like-icon"></span>
                                         </div>
@@ -441,72 +302,33 @@
     </div>
 </a>
 
-<section class="utf_testimonial_part fullwidth_block padding-top-75 padding-bottom-75">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3 class="headline_part centered">What Say Our Customers <span class="margin-top-15">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since...</span>
-                </h3>
-            </div>
-        </div>
-    </div>
-    <div class="fullwidth_carousel_container_block margin-top-20">
-        <div class="utf_testimonial_carousel testimonials">
-            <div class="utf_carousel_review_part">
-                <div class="utf_testimonial_box">
-                    <div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
-                        pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere
-                        sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur
-                        convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In
-                        fermentum facilisis massa, a consequat purus viverra.
-                    </div>
-                </div>
-                <div class="utf_testimonial_author"><img src="images/happy-client-01.jpg" alt="">
-                    <h4>Denwen Evil <span>Web Developer</span></h4>
-                </div>
-            </div>
-            <div class="utf_carousel_review_part">
-                <div class="utf_testimonial_box">
-                    <div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
-                        pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere
-                        sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur
-                        convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In
-                        fermentum facilisis massa, a consequat purus viverra.
-                    </div>
-                </div>
-                <div class="utf_testimonial_author"><img src="images/happy-client-02.jpg" alt="">
-                    <h4>Adam Alloriam <span>Web Developer</span></h4>
-                </div>
-            </div>
-            <div class="utf_carousel_review_part">
-                <div class="utf_testimonial_box">
-                    <div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
-                        pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere
-                        sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur
-                        convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In
-                        fermentum facilisis massa, a consequat purus viverra.
-                    </div>
-                </div>
-                <div class="utf_testimonial_author"><img src="images/happy-client-03.jpg" alt="">
-                    <h4>Illa Millia <span>Project Manager</span></h4>
-                </div>
-            </div>
-            <div class="utf_carousel_review_part">
-                <div class="utf_testimonial_box">
-                    <div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
-                        pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere
-                        sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur
-                        convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In
-                        fermentum facilisis massa, a consequat purus viverra.
-                    </div>
-                </div>
-                <div class="utf_testimonial_author"><img src="images/happy-client-01.jpg" alt="">
-                    <h4>Denwen Evil <span>Web Developer</span></h4>
+@if(count($featured_reviews) > 0)
+    <section class="utf_testimonial_part fullwidth_block padding-top-75 padding-bottom-75">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h3 class="headline_part centered">What Say Our Customers <span class="margin-top-15">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since...</span>
+                    </h3>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+        <div class="fullwidth_carousel_container_block margin-top-20">
+            <div class="utf_testimonial_carousel testimonials">
+                @foreach($featured_reviews as $review)
+                    <div class="utf_carousel_review_part">
+                        <div class="utf_testimonial_box">
+                            <div class="testimonial">
+                                {{$review->review}}
+                            </div>
+                        </div>
+                        <div class="utf_testimonial_author"><img src="images/happy-client-01.jpg" alt="">
+                            <h4>{{$review->username}} <span>{{json_decode($review->service_name)->en}}</span></h4>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+    </section>
+@endif
 
 <div class="container padding-bottom-70">
     <div class="row">

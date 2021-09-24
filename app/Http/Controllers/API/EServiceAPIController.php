@@ -65,6 +65,7 @@ class EServiceAPIController extends Controller
         } catch (RepositoryException $e) {
             return $this->sendError($e->getMessage());
         }
+
         $eServices = $this->eServiceRepository->all();
 
         $this->availableEServices($eServices);
