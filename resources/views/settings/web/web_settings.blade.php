@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{asset('vendor/summernote/summernote-bs4.min.css')}}">
     {{--dropzone--}}
     <link rel="stylesheet" href="{{asset('vendor/dropzone/min/dropzone.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
 @endpush
 @section('settings_title',trans('lang.web_settings'))
 @section('settings_content')
@@ -30,7 +31,7 @@
             <div class="row">
                 <div class="d-flex flex-column col-sm-12 col-md-8">
 
-                <!-- mail_host Field -->
+                <!-- Phone -->
                     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
                         {!! Form::label('phone', trans("lang.user_phone_number"), ['class' => 'col-4 control-label text-right']) !!}
                         <div class="col-8">
@@ -41,7 +42,7 @@
                         </div>
                     </div>
 
-                    <!-- mail_port Field -->
+                    <!-- Website -->
                     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
                         {!! Form::label('website', trans("lang.user_web"), ['class' => 'col-4 control-label text-right']) !!}
                         <div class="col-8">
@@ -52,7 +53,7 @@
                         </div>
                     </div>
 
-                    <!-- Lang Field -->
+                    <!-- Email -->
                     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
                         {!! Form::label('email', trans("lang.user_email"),['class' => 'col-4 control-label text-right']) !!}
                         <div class="col-8">
@@ -63,7 +64,7 @@
                         </div>
                     </div>
 
-                    <!-- Lang Field -->
+                    <!-- Address -->
                     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
                         {!! Form::label('address', trans("lang.user_address"),['class' => 'col-4 control-label text-right']) !!}
                         <div class="col-8">
@@ -74,7 +75,7 @@
                         </div>
                     </div>
 
-                    <!-- Lang Field -->
+                    <!-- Latitude -->
                     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
                         {!! Form::label('latitude', trans("lang.latitude"),['class' => 'col-4 control-label text-right']) !!}
                         <div class="col-8">
@@ -85,7 +86,7 @@
                         </div>
                     </div>
 
-                    <!-- Lang Field -->
+                    <!-- Longitude -->
                     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
                         {!! Form::label('longitude', trans("lang.longitude"),['class' => 'col-4 control-label text-right']) !!}
                         <div class="col-8">
@@ -96,11 +97,28 @@
                         </div>
                     </div>
 
-                </div>
+                    <!-- Theme Color -->
+                    <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
+                        {!! Form::label('theme_color', trans("lang.theme_color"), ['class' => 'col-md-4 control-label text-right']) !!}
+                        <div class="col-8">
+                            <div class="input-group colorpicker-component">
+                                {!! Form::text('theme_color', setting('theme_color'),  ['class' => 'form-control','placeholder'=>  trans("lang.theme_color_placeholder"),'autocomplete' => 'off']) !!}
+                                <div class=" input-group-append ">
+                                    <span class="input-group-addon input-group-text"><i class="fas fa-square" style="color:#000"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-text text-muted">
+                                {{ trans("lang.theme_color_help") }}
+                            </div>
+                        </div>
+                    </div>
+                
 
+                </div>
+                
                 <!-- Submit Field -->
                 <div class="form-group mt-4 col-12 text-right">
-                    <button type="submit" class="btn bg-{{setting('theme_color')}} mx-md-3 my-lg-0 my-xl-0 my-md-0 my-2">
+                    <button type="submit" class="btn btn-primary mx-md-3 my-lg-0 my-xl-0 my-md-0 my-2">
                         <i class="fas fa-save"></i> {{trans('lang.save')}} {{trans('lang.web_app_setting')}}</button>
                     <a href="{!! route('users.index') !!}" class="btn btn-default"><i class="fas fa-undo"></i> {{trans('lang.cancel')}}</a>
                 </div>
@@ -109,6 +127,7 @@
             {!! Form::close() !!}
             <div class="clearfix"></div>
         </div>
+    </div>
     </div>
     @include('layouts.media_modal',['collection'=>null])
 @endsection
@@ -125,4 +144,15 @@
         Dropzone.autoDiscover = false;
         var dropzoneFields = [];
     </script>
+        <script src="{{asset('vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
+        <script type="text/javascript">
+            $(".colorpicker-component, input[name$='color']").colorpicker({
+                format: 'hex',
+            });
+            $('.colorpicker-component').on('colorpickerChange', function (event) {
+                $(this).find('.fa-square').css('color', event.color.toString());
+            });
+            Dropzone.autoDiscover = false;
+            var dropzoneFields = [];
+        </script>
 @endpush

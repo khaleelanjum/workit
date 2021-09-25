@@ -1333,4 +1333,7 @@ return [
     'e_service_reviews_featured' => 'Featured',
     'e_provider_featured_help' => 'Insert Featured',
     'e_provider_featured_placeholder' => 'Insert Featured',
+    'theme_color' => 'Theme Color',
+    'theme_color_placeholder' => 'Insert Theme Color',
+    'theme_color_help' => 'Select Your Prefer Theme color',
 ];
