@@ -382,6 +382,13 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a href="{!! url('settings/web_settings') !!}"
+                   class="nav-link {{ Request::is('settings/web_settings*') ? 'active' : '' }}">
+                    @if($icons)<i class="nav-icon fas fa-globe"></i> @endif <p>{{trans('lang.web_settings')}}</p>
+                </a>
+            </li>
+
             @can('users.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('users*') ? 'active' : '' }}"
@@ -494,13 +501,6 @@
                 <a href="{!! url('settings/mail/smtp') !!}"
                    class="nav-link {{ Request::is('settings/mail*') ? 'active' : '' }}">
                     @if($icons)<i class="nav-icon fas fa-envelope"></i> @endif <p>{{trans('lang.app_setting_mail')}}</p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{!! url('settings/web_settings') !!}"
-                   class="nav-link {{ Request::is('settings/web_settings*') ? 'active' : '' }}">
-                    @if($icons)<i class="nav-icon fas fa-globe"></i> @endif <p>{{trans('lang.web_settings')}}</p>
                 </a>
             </li>
         </ul>

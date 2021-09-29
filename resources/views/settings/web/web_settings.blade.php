@@ -99,26 +99,24 @@
 
                     <!-- Theme Color -->
                     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
-                        {!! Form::label('theme_color', trans("lang.theme_color"), ['class' => 'col-md-4 control-label text-right']) !!}
+                        {!! Form::label('web_theme_color', trans("lang.web_theme_color"), ['class' => 'col-md-4 control-label text-right']) !!}
                         <div class="col-8">
                             <div class="input-group colorpicker-component">
-                                {!! Form::text('theme_color', setting('theme_color'),  ['class' => 'form-control','placeholder'=>  trans("lang.theme_color_placeholder"),'autocomplete' => 'off']) !!}
+                                {!! Form::text('web_theme_color', setting('web_theme_color'),  ['class' => 'form-control','placeholder'=>  trans("lang.web_theme_color_placeholder"),'autocomplete' => 'off']) !!}
                                 <div class=" input-group-append ">
-                                    <span class="input-group-addon input-group-text"><i class="fas fa-square" style="color:#000"></i></span>
+                                    <span class="input-group-addon input-group-text"><i class="fas fa-square" style="color:{{ setting('web_theme_color') }}"></i></span>
                                 </div>
                             </div>
                             <div class="form-text text-muted">
-                                {{ trans("lang.theme_color_help") }}
+                                {{ trans("lang.web_theme_color_help") }}
                             </div>
                         </div>
-                    </div>
-                
-
+                    </div> 
                 </div>
-                
+            
                 <!-- Submit Field -->
                 <div class="form-group mt-4 col-12 text-right">
-                    <button type="submit" class="btn btn-primary mx-md-3 my-lg-0 my-xl-0 my-md-0 my-2">
+                    <button type="submit" class="btn bg-{{setting('theme_color')}} mx-md-3 my-lg-0 my-xl-0 my-md-0 my-2">
                         <i class="fas fa-save"></i> {{trans('lang.save')}} {{trans('lang.web_app_setting')}}</button>
                     <a href="{!! route('users.index') !!}" class="btn btn-default"><i class="fas fa-undo"></i> {{trans('lang.cancel')}}</a>
                 </div>
