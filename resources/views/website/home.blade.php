@@ -16,26 +16,7 @@
                              data-kenburns="on" data-duration="12000" data-ease="Linear.easeNone" data-scalestart="100"
                              data-scaleend="112" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0"
                              data-offsetend="0 0">
-                        <div class="container main_inner_search_block margin-top-100">
-                            <div class="main_input_search_part">
-                                <div class="main_input_search_part_item">
-                                    <input type="text" placeholder="What are you looking for?" value=""/>
-                                </div>
-                                <div class="main_input_search_part_item location">
-                                    <input type="text" placeholder="Search Location..." value=""/>
-                                    <a href="#"><i class="sl sl-icon-location"></i></a>
-                                </div>
-                                <div class="main_input_search_part_item intro-search-field">
-                                    <select data-placeholder="All Categories" class="selectpicker default"
-                                            title="All Categories" data-selected-text-format="count" data-size="4">
-                                        @foreach($featured_categories as $categories)
-                                            <option value="{{$categories->id}}">{{json_decode($categories->name)->en}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <button class="button" onclick="">Search</button>
-                            </div>
-                        </div>
+                        @include ('website.search')
                         <div class="tp-caption centered utf_custom_caption tp-shape tp-shapewrapper tp-resizeme rs-parallaxlevel-0"
                              id="utf_slide_layer_item_one"
                              data-x="['center','center','center','center']" data-hoffset="['0']"
@@ -112,55 +93,22 @@
     </div>
 @endif
 
-@if(count($featured_services) > 0)
-    <section class="fullwidth_block margin-top-65 padding-top-75 padding-bottom-70" data-background-color="#f9f9f9">
-        <div class="container">
-            <div class="row slick_carousel_slider">
-                <div class="col-md-12">
-                    <h3 class="headline_part centered margin-bottom-45"> Most Recommended Services <span>Explore the best services in the city</span>
-                    </h3>
-                </div>
+<section class="fullwidth_block margin-top-65 padding-top-75 padding-bottom-70" data-background-color="#f9f9f9">
+    <div class="container">
+        <div class="row slick_carousel_slider">
+            <div class="col-md-12">
+                <h3 class="headline_part centered margin-bottom-45"> Most Recommended Services <span>Explore the best services in the city</span>
+                </h3>
+            </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="simple_slick_carousel_block utf_dots_nav">
-                            @foreach($featured_services as $service)
-                                <div class="utf_carousel_item">
-                                    <a href="listings_single_page_1.html" class="utf_listing_item-container compact">
-                                        <div class="utf_listing_item">
-                                            <img src="{{asset('storage/app/public/'.$service["media"][0]["id"]."/".$service["media"][0]["file_name"])}}"
-                                                 alt="">
-                                            {{--                                            <span class="tag"><i class="im im-icon-Chef-Hat"></i> {{json_decode($service->category_name)->en}}</span>--}}
-                                            <span class="featured_tag">Featured</span>
-                                            $service->available ? <span class="utf_open_now">Available</span> : <span
-                                                    class="utf_open_now">Available</span>
-                                            <div class="utf_listing_item_content">
-                                                <div class="utf_listing_prige_block">
-                                            <span class="utf_meta_listing_price">
-                                                <i class="fa fa-tag"></i>{{$service["price"] . ' ' . $default_currency}}</span>
-                                                    <span class="utp_approve_item">
-                                                        <i class="utf_approve_listing"></i></span>
-                                                </div>
-                                                <h3>{{$service["name"]->en}}</h3>
-                                                {{--<span><i class="sl sl-icon-location"></i> The Ritz-Carlton, Hong Kong</span>
-                                                <span><i class="sl sl-icon-phone"></i> (415) 796-3633</span>--}}
-                                            </div>
-                                        </div>
-                                        <div class="utf_star_rating_section" data-rating="{{$service["rate"]}}">
-                                            <div class="utf_counter_star_rating">({{$service["total_reviews"]}})</div>
-                                            <span class="utf_view_count"><i class="fa fa-eye"></i> 822+</span>
-                                            <span class="like-icon"></span>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="simple_slick_carousel_block utf_dots_nav" id="featured_services"></div>
                 </div>
             </div>
         </div>
-    </section>
-@endif
+    </div>
+</section>
 
 <section class="fullwidth_block margin-top-65 margin-bottom-75" data-background-color="#ffffff">
     <div class="container">

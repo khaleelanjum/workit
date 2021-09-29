@@ -76,38 +76,11 @@ class StoreController extends Controller
                 $join->on('categories.id', '=', 'c.category_id');
             })->where('featured', 1)->get();
 
-        $featured_services = DB::table('e_services')
-            ->select('e_services.id', 'e_services.name', 'e_services.price', 'e_services.available', DB::raw('categories.name as category_name'), DB::raw('AVG(e_service_reviews.rate) as rating'))
-            ->join('e_service_categories', 'e_services.id', '=', 'e_service_categories.e_service_id')
-            ->join('categories', 'categories.id', '=', 'e_service_categories.category_id')
-            ->leftJoin('e_service_reviews', 'e_services.id', '=', 'e_service_reviews.e_service_id')
-            ->where('e_services.featured', 1)
-            ->groupBy('e_service_reviews.e_service_id')
-            ->get();
-
         $featured_reviews = DB::table('e_service_reviews')
             ->select('e_service_reviews.review', 'e_service_reviews.rate', DB::raw('users.name as username'), DB::raw('e_services.name as service_name'))
             ->join('users', 'e_service_reviews.user_id', '=', 'users.id')
             ->join('e_services', 'e_service_reviews.e_service_id', '=', 'e_services.id')
             ->where('e_service_reviews.featured', 1)->get();
-
-        try {
-            $data = array(
-//                "only" => "id;name;price;discount_price;price_unit;has_media;media;total_reviews;rate",
-//                "limit" => "6",
-//                "myLat" => "25.204849",
-//                "myLon" => "55.270782"
-            );
-
-            $this->eServiceRepository->pushCriteria(new NearCriteria(new Request($data)));
-        } catch (RepositoryException $e) {
-            return $this->sendError($e->getMessage());
-        }
-
-        $eServices = $this->eServiceRepository->all();
-        $this->availableEServices($eServices);
-        $this->featuredEServices($eServices);
-        $eServices = array_values($eServices->toArray());
 
         return view('website.index')
             ->with("page", 'home')
@@ -115,13 +88,32 @@ class StoreController extends Controller
             ->with("default_currency", $default_currency)
             ->with("slides", $slides)
             ->with("featured_categories", $featured_categories)
-            ->with("featured_services", $eServices)
             ->with("featured_reviews", $featured_reviews);
+    }
+
+    public function listing() {
+        $google_maps_key = DB::table('app_settings')->where('key', 'google_maps_key')->value('value');
+        $default_currency = DB::table('app_settings')->where('key', 'default_currency')->value('value');
+        $category_count = DB::table('e_service_categories')
+            ->select('category_id', DB::raw("COUNT(*) as category_count"))
+            ->groupBy('category_id');
+        $featured_categories = DB::table('categories')
+            ->select('id', 'c.category_count', 'name', 'color')
+            ->leftJoinSub($category_count, 'c', function ($join) {
+                $join->on('categories.id', '=', 'c.category_id');
+            })->where('featured', 1)->get();
+
+        return view('website.listing')
+            ->with("page", 'listing')
+            ->with("google_maps_key", $google_maps_key)
+            ->with("default_currency", $default_currency)
+            ->with("featured_categories", $featured_categories);
     }
 
     public function contact()
     {
         $google_maps_key = DB::table('app_settings')->where('key', 'google_maps_key')->value('value');
+        $default_currency = DB::table('app_settings')->where('key', 'default_currency')->value('value');
         $latitude = DB::table('app_settings')->where('key', 'latitude')->value('value');
         $longitude = DB::table('app_settings')->where('key', 'longitude')->value('value');
         $address = DB::table('app_settings')->where('key', 'address')->value('value');
@@ -132,6 +124,7 @@ class StoreController extends Controller
         return view('website.contact')
             ->with("page", 'contact')
             ->with("google_maps_key", $google_maps_key)
+            ->with("default_currency", $default_currency)
             ->with("latitude", $latitude)
             ->with("longitude", $longitude)
             ->with("address", $address)
@@ -143,10 +136,12 @@ class StoreController extends Controller
     public function about()
     {
         $google_maps_key = DB::table('app_settings')->where('key', 'google_maps_key')->value('value');
+        $default_currency = DB::table('app_settings')->where('key', 'default_currency')->value('value');
 
         return view('website.about')
             ->with("page", 'about')
-            ->with("google_maps_key", $google_maps_key);
+            ->with("google_maps_key", $google_maps_key)
+            ->with("default_currency", $default_currency);
     }
 
     /**
@@ -174,5 +169,29 @@ class StoreController extends Controller
     private function featuredEServices(Collection &$eServices)
     {
         $eServices = $eServices->where('featured', true);
+    }
+
+    public function getservices(Request $request)
+    {
+        $lat = $request->input('lat');
+        $lng = $request->input('lng');
+        try {
+            $data = array(
+//                "only" => "id;name;price;discount_price;price_unit;has_media;media;total_reviews;rate",
+//                "limit" => "6",
+                "myLat" => $lat,
+                "myLon" => $lng
+            );
+
+            $this->eServiceRepository->pushCriteria(new NearCriteria(new Request($data)));
+        } catch (RepositoryException $e) {
+            return $this->sendError($e->getMessage());
+        }
+
+        $eServices = $this->eServiceRepository->all();
+        $this->availableEServices($eServices);
+        $this->featuredEServices($eServices);
+        $eServices = array_values($eServices->toArray());
+        return json_encode($eServices);
     }
 }

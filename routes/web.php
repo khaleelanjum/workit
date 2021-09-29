@@ -19,6 +19,8 @@
 
 //Frontend Routes
 Route::get('/', 'Website\StoreController@index');
+Route::post('/getservices', 'Website\StoreController@getservices');
+Route::get('listing', 'Website\StoreController@listing');
 Route::get('contact', 'Website\StoreController@contact');
 Route::get('about', 'Website\StoreController@about');
 

@@ -10,67 +10,12 @@
 				</span>
                     </button>
                 </div>
+
                 <nav id="navigation" class="style_one">
                     <ul id="responsive">
                         <li><a @if($page == 'home') class="current" @endif href="{{url('')}}">Home</a>
                         </li>
-                        <li><a href="#">Listings</a>
-                            <ul>
-                                <li><a href="#">List Layout</a>
-                                    <ul>
-                                        <li><a href="listings_list_with_sidebar.html">Listing List Sidebar</a></li>
-                                        <li><a href="listings_list_full_width.html">Listing List Full Width</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Grid Layout</a>
-                                    <ul>
-                                        <li><a href="listings_grid_with_sidebar.html">Listing Grid Sidebar</a></li>
-                                        <li><a href="listings_two_column_map_grid.html">Listing Two Column Grid</a>
-                                        </li>
-                                        <li><a href="listings_grid_full_width.html">Listing Grid Full Width</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Half Listing Map</a>
-                                    <ul>
-                                        <li><a href="listings_half_screen_map_list.html">Listing Half List</a></li>
-                                        <li><a href="listings_half_screen_map_grid.html">Listing Half Grid</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Listing Details</a>
-                                    <ul>
-                                        <li><a href="listings_single_page_1.html">Single Listing Version 1</a></li>
-                                        <li><a href="listings_single_page_2.html">Single Listing Version 2</a></li>
-                                        <li><a href="listings_single_page_3.html">Single Listing Version 3</a></li>
-                                        <li><a href="listings_single_page_4.html">Single Listing Version 4</a></li>
-                                        <li><a href="listings_single_page_5.html">Single Listing Version 5</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="#">User Panel</a>
-                            <ul>
-                                <li><a href="dashboard.html">Dashboard</a></li>
-                                <li><a href="dashboard_add_listing.html">Add Listing</a></li>
-                                <li><a href="dashboard_my_listing.html">My Listings</a></li>
-                                <li><a href="dashboard_bookings.html">Bookings</a></li>
-                                <li><a href="dashboard_messages.html">Messages</a></li>
-                                <li><a href="dashboard_wallet.html">Wallet</a></li>
-                                <li><a href="dashboard_visitor_review.html">Reviews</a></li>
-                                <li><a href="dashboard_bookmark.html">Bookmark</a></li>
-                                <li><a href="dashboard_my_profile.html">My Profile</a></li>
-                                <li><a href="dashboard_change_password.html">Change Password</a></li>
-                                <li><a href="dashboard_invoice.html">Invoice</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Blog</a>
-                            <ul>
-                                <li><a href="blog_page.html">Blog Grid</a></li>
-                                <li><a href="blog_page_left_sidebar.html">Blog Left Sidebar</a></li>
-                                <li><a href="blog_page_right_sidebar.html">Blog Right Sidebar</a></li>
-                                <li><a href="blog_detail_left_sidebar.html">Blog Detail Leftside</a></li>
-                                <li><a href="blog_detail_right_sidebar.html">Blog Detail Rightside</a></li>
-                            </ul>
-                        </li>
+                        <li><a @if($page == 'listing') class="current" @endif href="{{url('listing')}}">Listings</a>
                         <li><a @if($page == 'contact') class="current" @endif href="{{url('contact')}}">Contact Us</a>
                         </li>
                         <li><a @if($page == 'about') class="current" @endif href="{{url('about')}}">About Us</a>
