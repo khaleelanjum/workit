@@ -99,16 +99,32 @@
 
                     <!-- Theme Color -->
                     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
-                        {!! Form::label('web_theme_color', trans("lang.web_theme_color"), ['class' => 'col-md-4 control-label text-right']) !!}
+                        {!! Form::label('web_primary_color', trans("lang.web_primary_color"), ['class' => 'col-md-4 control-label text-right']) !!}
                         <div class="col-8">
                             <div class="input-group colorpicker-component">
-                                {!! Form::text('web_theme_color', setting('web_theme_color'),  ['class' => 'form-control','placeholder'=>  trans("lang.web_theme_color_placeholder"),'autocomplete' => 'off']) !!}
+                                {!! Form::text('web_primary_color', setting('web_primary_color'),  ['class' => 'form-control','placeholder'=>  trans("lang.web_primary_color_placeholder"),'autocomplete' => 'off']) !!}
                                 <div class=" input-group-append ">
-                                    <span class="input-group-addon input-group-text"><i class="fas fa-square" style="color:{{ setting('web_theme_color') }}"></i></span>
+                                    <span class="input-group-addon input-group-text"><i class="fas fa-square" style="color:{{ setting('web_primary_color') }}"></i></span>
                                 </div>
                             </div>
                             <div class="form-text text-muted">
-                                {{ trans("lang.web_theme_color_help") }}
+                                {{ trans("lang.web_primary_color_help") }}
+                            </div>
+                        </div>
+                    </div> 
+
+                    <!-- Theme Color -->
+                    <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
+                        {!! Form::label('web_secondary_color', trans("lang.web_secondary_color"), ['class' => 'col-md-4 control-label text-right']) !!}
+                        <div class="col-8">
+                            <div class="input-group colorpicker-component">
+                                {!! Form::text('web_secondary_color', setting('web_secondary_color'),  ['class' => 'form-control','placeholder'=>  trans("lang.web_secondary_color_placeholder"),'autocomplete' => 'off']) !!}
+                                <div class=" input-group-append ">
+                                    <span class="input-group-addon input-group-text"><i class="fas fa-square" style="color:{{ setting('web_secondary_color') }}"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-text text-muted">
+                                {{ trans("lang.web_secondary_color_help") }}
                             </div>
                         </div>
                     </div> 
