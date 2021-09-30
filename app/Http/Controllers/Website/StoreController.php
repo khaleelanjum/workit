@@ -54,8 +54,9 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $google_maps_key = DB::table('app_settings')->where('key', 'google_maps_key')->value('value');
-        $default_currency = DB::table('app_settings')->where('key', 'default_currency')->value('value');
+        $google_maps_key    = DB::table('app_settings')->where('key', 'google_maps_key')->value('value');
+        $default_currency   = DB::table('app_settings')->where('key', 'default_currency')->value('value');
+        $primary_color      = DB::table('app_settings')->where('key', 'primary_color')->value('value');
 
         try {
             $this->slideRepository->pushCriteria(new OrderCriteria());
@@ -88,7 +89,8 @@ class StoreController extends Controller
             ->with("default_currency", $default_currency)
             ->with("slides", $slides)
             ->with("featured_categories", $featured_categories)
-            ->with("featured_reviews", $featured_reviews);
+            ->with("featured_reviews", $featured_reviews)
+            ->with("primary_color", $primary_color);
     }
 
     public function listing() {
