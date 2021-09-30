@@ -137,11 +137,19 @@ class StoreController extends Controller
     {
         $google_maps_key = DB::table('app_settings')->where('key', 'google_maps_key')->value('value');
         $default_currency = DB::table('app_settings')->where('key', 'default_currency')->value('value');
+        
+        $featured_reviews = DB::table('e_service_reviews')
+        ->select('e_service_reviews.review', 'e_service_reviews.rate', DB::raw('users.name as username'), DB::raw('e_services.name as service_name'))
+        ->join('users', 'e_service_reviews.user_id', '=', 'users.id')
+        ->join('e_services', 'e_service_reviews.e_service_id', '=', 'e_services.id')
+        ->where('e_service_reviews.featured', 1)->get();
+
 
         return view('website.about')
             ->with("page", 'about')
             ->with("google_maps_key", $google_maps_key)
-            ->with("default_currency", $default_currency);
+            ->with("default_currency", $default_currency)
+            ->with("featured_reviews", $featured_reviews);
     }
 
     /**

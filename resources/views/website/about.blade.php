@@ -47,58 +47,18 @@
         </div>
         <div class="fullwidth_carousel_container_block margin-top-20">
             <div class="utf_testimonial_carousel testimonials">
+                @foreach ($featured_reviews as $review)
                 <div class="utf_carousel_review_part">
                     <div class="utf_testimonial_box">
-                        <div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
-                            pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere
-                            sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur
-                            convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In
-                            fermentum facilisis massa, a consequat purus viverra.
+                        <div class="testimonial">
+                            {{$review->review}}
                         </div>
                     </div>
                     <div class="utf_testimonial_author"><img src="images/happy-client-01.jpg" alt="">
-                        <h4>Denwen Evil <span>Web Developer</span></h4>
+                        <h4>{{ $review->username }} <span>{{json_decode($review->service_name)->en }}</span></h4>
                     </div>
-                </div>
-                <div class="utf_carousel_review_part">
-                    <div class="utf_testimonial_box">
-                        <div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
-                            pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere
-                            sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur
-                            convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In
-                            fermentum facilisis massa, a consequat purus viverra.
-                        </div>
-                    </div>
-                    <div class="utf_testimonial_author"><img src="images/happy-client-02.jpg" alt="">
-                        <h4>Adam Alloriam <span>Web Developer</span></h4>
-                    </div>
-                </div>
-                <div class="utf_carousel_review_part">
-                    <div class="utf_testimonial_box">
-                        <div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
-                            pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere
-                            sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur
-                            convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In
-                            fermentum facilisis massa, a consequat purus viverra.
-                        </div>
-                    </div>
-                    <div class="utf_testimonial_author"><img src="images/happy-client-03.jpg" alt="">
-                        <h4>Illa Millia <span>Project Manager</span></h4>
-                    </div>
-                </div>
-                <div class="utf_carousel_review_part">
-                    <div class="utf_testimonial_box">
-                        <div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
-                            pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere
-                            sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur
-                            convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In
-                            fermentum facilisis massa, a consequat purus viverra.
-                        </div>
-                    </div>
-                    <div class="utf_testimonial_author"><img src="images/happy-client-01.jpg" alt="">
-                        <h4>Denwen Evil <span>Web Developer</span></h4>
-                    </div>
-                </div>
+                </div>           
+                @endforeach
             </div>
         </div>
     </section>
