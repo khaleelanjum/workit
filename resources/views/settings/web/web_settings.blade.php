@@ -112,6 +112,17 @@
                             </div>
                         </div>
                     </div> 
+
+                    <!-- About Us -->
+                    <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
+                        {!! Form::label('about_us', trans("lang.web_aboutus"),['class' => 'col-4 control-label text-right']) !!}
+                        <div class="col-8">
+                            {!! Form::textarea('about_us', setting('about_us'),  ['class' => 'form-control','placeholder'=>  trans("lang.web_aboutus_placeholder")]) !!}
+                            <div class="form-text text-muted">
+                                {{ trans("lang.web_aboutus_help") }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             
                 <!-- Submit Field -->

@@ -5,8 +5,7 @@
                 <h4>Useful Links</h4>
                 <ul class="social_footer_link">
                     <li><a href="{{url('')}}">Home</a></li>
-                    <li><a href="#">Listing</a></li>
-                    <li><a href="#">Blog</a></li>
+                    <li><a href="{{ url('listing') }}">Listing</a></li> 
                     <li><a href="{{url('about')}}">About</a></li>
                     <li><a href="{{url('contact')}}">Contact</a></li>
                 </ul>
@@ -41,9 +40,7 @@
             </div>
             <div class="col-md-4 col-sm-12 col-xs-12">
                 <h4>About Us</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                    incididunt ut labore</p>
+                <p>{!! setting('about_us') !!}</p>
             </div>
         </div>
 

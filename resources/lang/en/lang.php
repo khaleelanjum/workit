@@ -1336,4 +1336,7 @@ return [
     'web_theme_color' => 'Theme Color',
     'web_theme_color_placeholder' => 'Insert Theme Color',
     'web_theme_color_help' => 'Select Your Prefer Theme color',
+    'web_aboutus' => 'About Us',
+    'web_aboutus_placeholder' => 'Insert About Us',
+    'web_aboutus_help' => 'Insert About us here',
 ];
