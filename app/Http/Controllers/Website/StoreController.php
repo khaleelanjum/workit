@@ -93,7 +93,8 @@ class StoreController extends Controller
             ->with("primary_color", $primary_color);
     }
 
-    public function listing() {
+    public function listing()
+    {
         $google_maps_key = DB::table('app_settings')->where('key', 'google_maps_key')->value('value');
         $default_currency = DB::table('app_settings')->where('key', 'default_currency')->value('value');
         $category_count = DB::table('e_service_categories')
@@ -110,6 +111,27 @@ class StoreController extends Controller
             ->with("google_maps_key", $google_maps_key)
             ->with("default_currency", $default_currency)
             ->with("featured_categories", $featured_categories);
+    }
+
+    public function listing_detail($id)
+    {
+        $google_maps_key = DB::table('app_settings')->where('key', 'google_maps_key')->value('value');
+        $default_currency = DB::table('app_settings')->where('key', 'default_currency')->value('value');
+
+        $data = array('with' => 'options;categories;eServiceReviews;eServiceReviews.user');
+        try {
+            $this->eServiceRepository->pushCriteria(new RequestCriteria(new Request($data)));
+        } catch (RepositoryException $e) {
+            return $this->sendError($e->getMessage());
+        }
+        $eServices = $this->eServiceRepository->findWithoutFail($id);
+        $eServices = $eServices->toArray();
+
+        return view('website.listing_detail')
+            ->with("page", 'listing_detail')
+            ->with("google_maps_key", $google_maps_key)
+            ->with("default_currency", $default_currency)
+            ->with("service_detail", $eServices);
     }
 
     public function contact()
@@ -139,12 +161,12 @@ class StoreController extends Controller
     {
         $google_maps_key = DB::table('app_settings')->where('key', 'google_maps_key')->value('value');
         $default_currency = DB::table('app_settings')->where('key', 'default_currency')->value('value');
-        
+
         $featured_reviews = DB::table('e_service_reviews')
-        ->select('e_service_reviews.review', 'e_service_reviews.rate', DB::raw('users.name as username'), DB::raw('e_services.name as service_name'))
-        ->join('users', 'e_service_reviews.user_id', '=', 'users.id')
-        ->join('e_services', 'e_service_reviews.e_service_id', '=', 'e_services.id')
-        ->where('e_service_reviews.featured', 1)->get();
+            ->select('e_service_reviews.review', 'e_service_reviews.rate', DB::raw('users.name as username'), DB::raw('e_services.name as service_name'))
+            ->join('users', 'e_service_reviews.user_id', '=', 'users.id')
+            ->join('e_services', 'e_service_reviews.e_service_id', '=', 'e_services.id')
+            ->where('e_service_reviews.featured', 1)->get();
 
 
         return view('website.about')
@@ -200,7 +222,6 @@ class StoreController extends Controller
 
         $eServices = $this->eServiceRepository->all();
         $this->availableEServices($eServices);
-        $this->featuredEServices($eServices);
         $eServices = array_values($eServices->toArray());
         return json_encode($eServices);
     }

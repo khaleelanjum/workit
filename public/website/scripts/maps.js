@@ -38,7 +38,7 @@ var infoBox_ratingType = 'utf_star_rating_section';
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: zoomLevel,
             scrollwheel: scrollEnabled,
-            center: new google.maps.LatLng(40.80, -73.70),
+            center: new google.maps.LatLng(lat, lng),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             zoomControl: false,
             mapTypeControl: false,

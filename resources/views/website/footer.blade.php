@@ -5,7 +5,7 @@
                 <h4>Useful Links</h4>
                 <ul class="social_footer_link">
                     <li><a href="{{url('')}}">Home</a></li>
-                    <li><a href="{{ url('listing') }}">Listing</a></li> 
+                    <li><a href="{{ url('listing') }}">Listing</a></li>
                     <li><a href="{{url('about')}}">About</a></li>
                     <li><a href="{{url('contact')}}">Contact</a></li>
                 </ul>
@@ -46,7 +46,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="footer_copyright_part">Copyright © 2019 All Rights Reserved.</div>
+                <div class="footer_copyright_part">Copyright © {{date('Y')}} All Rights Reserved.</div>
             </div>
         </div>
     </div>
@@ -68,7 +68,8 @@
 <script src="{{asset('website/scripts/typed.js')}}"></script>
 
 <!-- Maps -->
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key={{$google_maps_key}}"></script>
+<script type="text/javascript"
+        src="https://maps.google.com/maps/api/js?key={{$google_maps_key}}&libraries=places"></script>
 <script src="{{asset('website/scripts/infobox.min.js')}}"></script>
 <script src="{{asset('website/scripts/markerclusterer.js')}}"></script>
 <script src="{{asset('website/scripts/maps.js')}}"></script>

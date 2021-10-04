@@ -158,7 +158,7 @@
                     html = '';
                     services.forEach(function (s, i) {
                         html += '<div class="utf_carousel_item">' +
-                            '<a href="listings_single_page_1.html" class="utf_listing_item-container compact">' +
+                            '<a href="{{url('listing_detail')}}/' + s.id + '" class="utf_listing_item-container compact">' +
                             '<div class="utf_listing_item">' +
                             '<img src="storage/app/public/' + s["media"][0]["id"] + "/" + s["media"][0]["file_name"] + '" alt="">' +
                             '<span class="featured_tag">Featured</span>' +

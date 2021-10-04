@@ -21,6 +21,7 @@
 Route::get('/', 'Website\StoreController@index');
 Route::post('/getservices', 'Website\StoreController@getservices');
 Route::get('listing', 'Website\StoreController@listing');
+Route::get('listing_detail/{listing_id}', 'Website\StoreController@listing_detail');
 Route::get('contact', 'Website\StoreController@contact');
 Route::get('about', 'Website\StoreController@about');
 
@@ -148,7 +149,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('galleries', 'GalleryController')->except([
         'show'
     ]);
-
 
     Route::resource('eServiceReviews', 'EServiceReviewController')->except([
         'show'

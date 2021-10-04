@@ -83,6 +83,18 @@ class AppSettingController extends Controller
             if (empty($input['mail_password'])) {
                 unset($input['mail_password']);
             }
+
+            if (!empty($input['web_theme_color'])) {
+                $new_color = $input['web_theme_color'];
+                $css = file_get_contents('http://127.0.0.1:8000/website/css/styles.css', "w");
+
+                $color = setting('web_theme_color');
+                $new_css = str_replace($color, $new_color, $css);
+                $file = fopen('http://127.0.0.1:8000/website/css/styles.css', 'w');
+                fwrite($file, $new_css);
+                fclose($file);
+            }
+
             $input = array_map(function ($value) {
                 return is_null($value) ? false : $value;
             }, $input);
@@ -106,6 +118,7 @@ class AppSettingController extends Controller
         }
         return redirect()->back();
     }
+
     public function web_settings()
     {
         return view('settings.web.web_settings');

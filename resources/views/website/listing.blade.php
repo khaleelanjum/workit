@@ -79,18 +79,12 @@
                         </div>
                         <div class="sort-by">
                             <div class="utf_sort_by_select_item sort_by_margin">
-                                <select data-placeholder="Categories:" class="utf_chosen_select_single">
-                                    <option>Categories</option>
-                                    <option>Restaurant</option>
-                                    <option>Health</option>
-                                    <option>Hotels</option>
-                                    <option>Real Estate</option>
-                                    <option>Fitness</option>
-                                    <option>Shopping</option>
-                                    <option>Travel</option>
-                                    <option>Shops</option>
-                                    <option>Nightlife</option>
-                                    <option>Events</option>
+                                <select data-placeholder="Categories:" class="utf_chosen_select_single"
+                                        id="service_category">
+                                    <option value="">Select Category</option>
+                                    @foreach($featured_categories as $category)
+                                        <option value="{{$category->id}}">{{json_decode($category->name)->en}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -107,7 +101,7 @@
                 <div class="row" id="featured_services">
 
                 </div>
-                <div class="clearfix"></div>
+                {{--<div class="clearfix"></div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="utf_pagination_container_part margin-top-20 margin-bottom-75">
@@ -123,7 +117,7 @@
                             </nav>
                         </div>
                     </div>
-                </div>
+                </div>--}}
             </div>
         </div>
     </div>
@@ -161,34 +155,54 @@
 <script>
     var tpj = jQuery;
     var revapi4;
+    var lat;
+    var lng;
+
     tpj(document).ready(function () {
         getLocation();
+        var input = document.getElementById('current_location');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+    });
+
+    tpj('#current_location').on('change', function () {
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': tpj('#current_location').val()}, (res, status) => {
+            console.log(res, status)
+            if (status == google.maps.GeocoderStatus.OK) {
+                lat = res[0].geometry.location.lat();
+                lng = res[0].geometry.location.lng();
+                loadServices();
+            }
+        });
+    });
+
+    tpj('#service_category').on('change', function () {
+        loadServices();
     });
 
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
         } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
+            console.log("Geolocation is not supported by this browser.");
         }
     }
 
     function showPosition(position) {
-        // lat = position.coords.latitude;
-        // lng = position.coords.longitude;
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+        loadServices();
+        getAddress();
+    }
 
-        lat = "25.276987";
-        lng = "55.296249";
-
-        console.log(getAddress(lat, lng));
-
+    function loadServices() {
         $.ajax({
             type: 'POST',
             url: '/getservices',
             data: {
                 "_token": "{{ csrf_token() }}",
                 "lat": lat,
-                "lng": lng
+                "lng": lng,
             },
             success: function (data) {
                 if (data) {
@@ -231,50 +245,50 @@
                 }
             }
         });
-
-        function starRating(ratingElem) {
-            $(ratingElem).each(function () {
-                var dataRating = $(this).attr('data-rating');
-
-                function starsOutput(firstStar, secondStar, thirdStar, fourthStar, fifthStar) {
-                    return ('' + '<span class="' + firstStar + '"></span>' + '<span class="' + secondStar + '"></span>' + '<span class="' + thirdStar + '"></span>' + '<span class="' + fourthStar + '"></span>' + '<span class="' + fifthStar + '"></span>');
-                }
-
-                var fiveStars = starsOutput('star', 'star', 'star', 'star', 'star');
-                var fourHalfStars = starsOutput('star', 'star', 'star', 'star', 'star half');
-                var fourStars = starsOutput('star', 'star', 'star', 'star', 'star empty');
-                var threeHalfStars = starsOutput('star', 'star', 'star', 'star half', 'star empty');
-                var threeStars = starsOutput('star', 'star', 'star', 'star empty', 'star empty');
-                var twoHalfStars = starsOutput('star', 'star', 'star half', 'star empty', 'star empty');
-                var twoStars = starsOutput('star', 'star', 'star empty', 'star empty', 'star empty');
-                var oneHalfStar = starsOutput('star', 'star half', 'star empty', 'star empty', 'star empty');
-                var oneStar = starsOutput('star', 'star empty', 'star empty', 'star empty', 'star empty');
-                if (dataRating >= 4.75) {
-                    $(this).append(fiveStars);
-                } else if (dataRating >= 4.25) {
-                    $(this).append(fourHalfStars);
-                } else if (dataRating >= 3.75) {
-                    $(this).append(fourStars);
-                } else if (dataRating >= 3.25) {
-                    $(this).append(threeHalfStars);
-                } else if (dataRating >= 2.75) {
-                    $(this).append(threeStars);
-                } else if (dataRating >= 2.25) {
-                    $(this).append(twoHalfStars);
-                } else if (dataRating >= 1.75) {
-                    $(this).append(twoStars);
-                } else if (dataRating >= 1.25) {
-                    $(this).append(oneHalfStar);
-                } else if (dataRating < 1.25) {
-                    $(this).append(oneStar);
-                }
-            });
-        }
     }
 
-    function getAddress(myLatitude, myLongitude) {
+    function starRating(ratingElem) {
+        $(ratingElem).each(function () {
+            var dataRating = $(this).attr('data-rating');
+
+            function starsOutput(firstStar, secondStar, thirdStar, fourthStar, fifthStar) {
+                return ('' + '<span class="' + firstStar + '"></span>' + '<span class="' + secondStar + '"></span>' + '<span class="' + thirdStar + '"></span>' + '<span class="' + fourthStar + '"></span>' + '<span class="' + fifthStar + '"></span>');
+            }
+
+            var fiveStars = starsOutput('star', 'star', 'star', 'star', 'star');
+            var fourHalfStars = starsOutput('star', 'star', 'star', 'star', 'star half');
+            var fourStars = starsOutput('star', 'star', 'star', 'star', 'star empty');
+            var threeHalfStars = starsOutput('star', 'star', 'star', 'star half', 'star empty');
+            var threeStars = starsOutput('star', 'star', 'star', 'star empty', 'star empty');
+            var twoHalfStars = starsOutput('star', 'star', 'star half', 'star empty', 'star empty');
+            var twoStars = starsOutput('star', 'star', 'star empty', 'star empty', 'star empty');
+            var oneHalfStar = starsOutput('star', 'star half', 'star empty', 'star empty', 'star empty');
+            var oneStar = starsOutput('star', 'star empty', 'star empty', 'star empty', 'star empty');
+            if (dataRating >= 4.75) {
+                $(this).append(fiveStars);
+            } else if (dataRating >= 4.25) {
+                $(this).append(fourHalfStars);
+            } else if (dataRating >= 3.75) {
+                $(this).append(fourStars);
+            } else if (dataRating >= 3.25) {
+                $(this).append(threeHalfStars);
+            } else if (dataRating >= 2.75) {
+                $(this).append(threeStars);
+            } else if (dataRating >= 2.25) {
+                $(this).append(twoHalfStars);
+            } else if (dataRating >= 1.75) {
+                $(this).append(twoStars);
+            } else if (dataRating >= 1.25) {
+                $(this).append(oneHalfStar);
+            } else if (dataRating < 1.25) {
+                $(this).append(oneStar);
+            }
+        });
+    }
+
+    function getAddress() {
         var geocoder = new google.maps.Geocoder();							// create a geocoder object
-        var location = new google.maps.LatLng(myLatitude, myLongitude);		// turn coordinates into an object
+        var location = new google.maps.LatLng(lat, lng);		// turn coordinates into an object
         geocoder.geocode({'latLng': location}, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {						// if geocode success
                 name = results[0].formatted_address;

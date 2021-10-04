@@ -1,0 +1,25 @@
+.header_widget .button, .header_widget .button.border {
+    background:#ff2222;
+    border:1px solid transparent;
+    color:#fff;
+    margin:0 5px;
+    min-width: 110px;
+    text-align: center;
+    position: relative;
+    line-height: 26px;
+    font-weight: 600;
+    -webkit-transition: all .5s ease 0;
+    transition: all .5s ease 0;
+    transition: all 0.5s ease 0s;
+}
+.header_widget .button, .header_widget .button.border:hover {
+    background:transparent;
+    border:1px solid #ff2222;
+    color:#ff2222;
+    -webkit-transition: all .5s ease 0;
+    transition: all .5s ease 0;
+    transition: all 0.5s ease 0s;
+}
+mark.color{
+    background-color:#ff2222;
+}
