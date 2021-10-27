@@ -12,6 +12,8 @@ use App\Criteria\EServices\EServicesOfUserCriteria;
 use App\Criteria\EServices\NearCriteria;
 use App\Criteria\Slides\EnabledCriteria;
 use App\Criteria\Slides\OrderCriteria;
+use App\Models\EService;
+use App\Models\EServiceCategory;
 use App\Repositories\BookingRepository;
 use App\Repositories\CurrencyRepository;
 use App\Repositories\EarningRepository;
@@ -27,6 +29,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
+use phpDocumentor\Reflection\Types\Null_;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Stevebauman\Location\Location;
@@ -125,13 +128,31 @@ class StoreController extends Controller
             return $this->sendError($e->getMessage());
         }
         $eServices = $this->eServiceRepository->findWithoutFail($id);
+        //dd($id) ;
         $eServices = $eServices->toArray();
 
-        return view('website.listing_detail')
+        $related_services  = EService::with('categories')->get() ;
+        foreach ($eServices['categories'] as $key=> $val ) {
+            $cate[$key] = $val['id'] ;
+        }
+        $len = count($related_services) ;
+        for ($i=0 ; $i<$len ; $i++) {
+            if(isset($related_services[$i]['categories'])) {
+                foreach ($related_services[$i]['categories'] as $val) {
+                    if (in_array($val['id'], $cate)) {
+                        $related_servicesss[$i] = $related_services[$i] ;
+                    }
+                }
+            }
+
+        }
+
+           return view('website.listing_detail')
             ->with("page", 'listing_detail')
             ->with("google_maps_key", $google_maps_key)
             ->with("default_currency", $default_currency)
-            ->with("service_detail", $eServices);
+            ->with("service_detail", $eServices)
+            ->with("eservices", $related_servicesss);
     }
 
     public function contact()
@@ -224,5 +245,10 @@ class StoreController extends Controller
         $this->availableEServices($eServices);
         $eServices = array_values($eServices->toArray());
         return json_encode($eServices);
+    }
+    function showdata()
+    {
+        $data =EService::show();
+        return view(website.listing_detail,['eServices' =>$data]);
     }
 }
