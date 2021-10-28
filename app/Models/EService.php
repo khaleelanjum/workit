@@ -224,6 +224,7 @@ class EService extends Model implements HasMedia, Castable
         return $this->favorites()->count() > 0;
     }
 
+
     /**
      * @return HasMany
      **/

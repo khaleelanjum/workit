@@ -16,7 +16,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use App\Http\Controllers\Website\StoreController;
 //Frontend Routes
 Route::get('/', 'Website\StoreController@index');
 Route::post('/getservices', 'Website\StoreController@getservices');
@@ -204,4 +204,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('walletTransactions', 'WalletTransactionController')->except([
         'show', 'edit', 'update', 'destroy'
     ]);
+   Route::get('/showdata',[StoreController::class,'showdata']);
 });
